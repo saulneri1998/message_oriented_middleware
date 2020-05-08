@@ -44,11 +44,14 @@ class SimpleMediator(Mediator):
                     target = m
                     break
 
-            if target.supported_protocol != msg.protocol:
+            if target.supported_protocol != msg.protocol and msg.protocol != "ACK":
                 msg = self.translate(msg, target.supported_protocol)
 
             target.process_message(msg)
-            self.logger.addLog("{} sent message to {}".format(msg.source, msg.target))
+            if msg.protocol == "ACK":
+                self.logger.addLog("{} acknowledged to {}".format(msg.source, msg.target))
+            else:
+                self.logger.addLog("{} sent message to {}".format(msg.source, msg.target))
 
         except Exception as e:
             print(e)

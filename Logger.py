@@ -12,5 +12,5 @@ class Logger:
         self.logs.append(timestamp + " - "+ msg)
 
     def printLogs(self):
-        for log in self.logs:
+        for log in reversed(self.logs):
             print(log)

@@ -8,5 +8,6 @@ class XMLMessageAdapter(Message):
             self.target = __msg.target
             self.protocol = "XML"
             self.body = __msg.body
+            self.ack = __msg.ack
         except Exception as e:
             print(e)

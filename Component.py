@@ -21,9 +21,9 @@ MESSAGE RECEIVED IN {}:
         except Exception as e:
             print(e)
 
-    def send_message(self, target, protocol, body):
+    def send_message(self, target, protocol, body, ack):
         try:
-            msg = Message(self.my_id, target, protocol, body)
+            msg = Message(self.my_id, target, protocol, body, ack)
             self.mediator.notify(msg)
         except Exception as e:
             print(e)
@@ -37,6 +37,8 @@ MESSAGE RECEIVED IN {}:
                     msg.body
                 )
             )
+            if msg.ack == True:
+                self.send_message(msg.source, "ACK", "Message received", False)
         except Exception as e:
             print(e)
     
