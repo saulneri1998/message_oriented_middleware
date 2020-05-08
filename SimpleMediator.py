@@ -6,30 +6,46 @@ from CSVMessageAdapter import CSVMessageAdapter
 class SimpleMediator(Mediator):
 
     def __init__(self):
-        super().__init__()
+        try:
+            super().__init__()
+        except Exception as e:
+            print(e)
 
     def add_member(self, member):
-        self.members.append(member)
+        try:
+            self.members.append(member)
+        except Exception as e:
+            print(e)
 
     def remove_member(self, member):
-        self.members.remove(member)
+        try:
+            self.members.remove(member)
+        except Exception as e:
+            print(e)
 
     def translate(self, msg, supported_protocol):
-        if supported_protocol == "XML":
-            return XMLMessageAdapter(msg)
-        elif supported_protocol == "JSON":
-            return JSONMessageAdapter(msg)
-        elif supported_protocol == "CSV":
-            return CSVMessageAdapter(msg)
+        try:
+            if supported_protocol == "XML":
+                return XMLMessageAdapter(msg)
+            elif supported_protocol == "JSON":
+                return JSONMessageAdapter(msg)
+            elif supported_protocol == "CSV":
+                return CSVMessageAdapter(msg)
+        except Exception as e:
+            print(e)
 
     def notify(self, msg):
-        target = None
-        for m in self.members:
-            if m.my_id == msg.target:
-                target = m
-                break
+        try:
+            target = None
+            for m in self.members:
+                if m.my_id == msg.target:
+                    target = m
+                    break
 
-        if target.supported_protocol != msg.protocol:
-            msg = self.translate(msg, target.supported_protocol)
+            if target.supported_protocol != msg.protocol:
+                msg = self.translate(msg, target.supported_protocol)
 
-        target.process_message(msg)
+            target.process_message(msg)
+            
+        except Exception as e:
+            print(e)
