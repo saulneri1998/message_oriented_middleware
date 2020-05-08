@@ -1,4 +1,5 @@
 from Message import Message
+from Logger import Logger
 
 class Component:
     id = 0
@@ -16,9 +17,9 @@ MESSAGE RECEIVED IN {}:
             Component.id += 1
             self.supported_protocol = __supported_protocol
             self.mediator.add_member(self)
+            self.logger = Logger.Instance()
         except Exception as e:
             print(e)
-        
 
     def send_message(self, target, protocol, body):
         try:
@@ -39,4 +40,5 @@ MESSAGE RECEIVED IN {}:
         except Exception as e:
             print(e)
     
-    
+    def checkLogger(self):
+        self.logger.printLogs()

@@ -2,12 +2,14 @@ from Mediator import Mediator
 from XMLMessageAdapter import XMLMessageAdapter
 from JSONMessageAdapter import JSONMessageAdapter
 from CSVMessageAdapter import CSVMessageAdapter
+from Logger import Logger
 
 class SimpleMediator(Mediator):
 
     def __init__(self):
         try:
             super().__init__()
+            self.logger = Logger.Instance()
         except Exception as e:
             print(e)
 
@@ -46,6 +48,7 @@ class SimpleMediator(Mediator):
                 msg = self.translate(msg, target.supported_protocol)
 
             target.process_message(msg)
-            
+            self.logger.addLog("{} sent message to {}".format(msg.source, msg.target))
+
         except Exception as e:
             print(e)
