@@ -3,7 +3,7 @@ from SimpleMediator import SimpleMediator
 
 class MediatorProxy(Mediator):
 
-    def __int__(self, __allowed_ids):
+    def __init__(self, __allowed_ids):
         super().__init__()
         self.allowed_ids = __allowed_ids
         self.mediator = SimpleMediator()

@@ -4,13 +4,15 @@ from Component import Component
 from Message import Message
 
 my_mediator = SimpleMediator()
-my_mediator_proxy = MediatorProxy([1,3])
+allowed = [0, 1]
+my_mediator_proxy = MediatorProxy(allowed)
 
 try:   
-    c1 = Component(my_mediator, "XML")
-    c2 = Component(my_mediator, "JSON")
-except:
+    c1 = Component(my_mediator_proxy, "XML")
+    c2 = Component(my_mediator_proxy, "JSON")
+    c1.send_message(c2.my_id, "CSV", "\{\}")
+except Exception as e:
+    print(e)
     # nada
 
-c1.send_message(c2.my_id, "CSV", "\{\}")
 
